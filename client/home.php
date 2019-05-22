@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php
 include "../config.php";
+// $status = $_SESSION["status"];
+// if($staus == ""){
+//   header("location:../index.php");
+// }
 ?>
 <html>
 <head>
@@ -17,7 +21,6 @@ include "../config.php";
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- END IonIcons -->
   <!-- Font Awesome -->
-  <link rel="stylesheet" type="text/css" href="../dist/js/plugins/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <!-- END Font Awesome -->
   <!-- Google Font: Source Sans Pro -->
@@ -41,13 +44,9 @@ include "../config.php";
         <li class="nav-item d-none d-sm-inline-block">
           <a href="admin/home.php" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
       </ul>
     </nav>
     <!-- /.navbar -->
-
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -75,10 +74,10 @@ include "../config.php";
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
+              <a href="quotation.php" class="nav-link">
+                <i class="nav-icon fa fa-file"></i>
                 <p>
-                  Manage
+                  Quotation
                   <!-- <span class="right badge badge-danger">New</span> -->
                 </p>
               </a>
@@ -87,7 +86,7 @@ include "../config.php";
               <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>
                 <p>
-                  logout
+                  Logout
                   <!-- <span class="right badge badge-danger">New</span> -->
                 </p>
               </a>
@@ -98,8 +97,7 @@ include "../config.php";
       </div>
       <!-- /.sidebar -->
     </aside>
-  </div>
-  <div class="content-wrapper">
+    <div class="content-wrapper">
     <div class="content-header">
       <div class="col-12 col-sm-12">
         <h4>Home</h4>
@@ -124,23 +122,10 @@ include "../config.php";
           <div class="col-12 col-sm-6 col-xl-3">
             <div class="info-box">
               <span class="info-box-icon bg-info elevation-1">
-                <i class="fa fa-file-text"></i>
+                <i class="fa fa-file"></i>
               </span>
               <div class="info-box-content">
                 <span class="info-box-text">Total Quotation</span>
-                <span class="info-box-number">
-                  <!-- PHP goes here -->
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-success elevation-1">
-                <i class="fa fa-usd"></i>
-              </span>
-              <div class="info-box-content">
-                <span class="info-box-text">Total Customer</span>
                 <span class="info-box-number">
                   <!-- PHP goes here -->
                 </span>
@@ -177,17 +162,13 @@ include "../config.php";
       </div>
     </div>
   </div>
+  </div>
+  <!-- JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- END JQUERY -->
   <!-- BOOTSTRAP -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <!-- END BOOTSTRAP -->
-  <!-- JQUERY -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <!-- END JQUERY -->
-  <!-- Script File -->
-  <script type="text/javascript" src="../js/jscript.js'"></script>
-  <!-- <script type="text/javascript" src="//<?php //echo ABSPATH . 'js/mobile-detect.js'; ?>"></script> -->
-  <!-- END Script File -->
   <!-- ADMINLTE -->
   <script type="text/javascript" src="../dist/js/adminlte.min.js"></script>
   <!-- END ADMINLTE -->
