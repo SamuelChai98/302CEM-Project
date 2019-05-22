@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 17, 2019 at 06:39 AM
+-- Generation Time: May 21, 2019 at 12:25 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `agile`
+-- Database: `testagile`
 --
 
 -- --------------------------------------------------------
@@ -117,6 +117,10 @@ CREATE TABLE `client_quotation` (
   `client_ID` bigint(20) DEFAULT NULL,
   `quotation_Start_Date` date NOT NULL,
   `quotation_End_Date` date NOT NULL,
+  `product_ID` int(11) NOT NULL,
+  `quotation_Qty` int(11) NOT NULL,
+  `quotation_Tax` varchar(255) NOT NULL,
+  `quotation_Remark` varchar(255) NOT NULL,
   `quotation_Amount` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -148,7 +152,6 @@ CREATE TABLE `login` (
   `client_ID` int(11) DEFAULT NULL,
   `userName` varchar(100) NOT NULL,
   `passWord` varchar(30) NOT NULL,
-  `name` varchar(100) NOT NULL,
   `status` enum('admin','client') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -156,9 +159,10 @@ CREATE TABLE `login` (
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`login_ID`, `client_ID`, `userName`, `passWord`, `name`, `status`) VALUES
-(1, NULL, 'admin', 'admin123', 'admin', 'admin'),
-(2, 2, 'nikki', 'nikki123', 'nikki_company', 'client');
+INSERT INTO `login` (`login_ID`, `client_ID`, `userName`, `passWord`, `status`) VALUES
+(1, NULL, 'admin', 'admin123', 'admin'),
+(2, 2, 'nikki', 'nikki123', 'client'),
+(19, 30, 'user2', 'user2123', 'client');
 
 -- --------------------------------------------------------
 
@@ -168,24 +172,22 @@ INSERT INTO `login` (`login_ID`, `client_ID`, `userName`, `passWord`, `name`, `s
 
 CREATE TABLE `manage_client` (
   `client_ID` int(11) NOT NULL,
+  `client_Status` enum('request','online','offline','') NOT NULL DEFAULT 'request',
   `client_Name` varchar(100) NOT NULL,
-  `client_Address_Line` text,
-  `client_Address_City` varchar(100) DEFAULT NULL,
-  `client_Address_Country` varchar(100) DEFAULT NULL,
-  `client_Address_State` varchar(100) DEFAULT NULL,
-  `client_Address_ZIP` int(11) DEFAULT NULL,
-  `client_Contact` varchar(20) DEFAULT NULL,
-  `client_Email` varchar(100) DEFAULT NULL,
+  `client_Contact` varchar(20) NOT NULL,
+  `client_Email` varchar(255) NOT NULL,
   `client_Register_Date` date NOT NULL,
-  `client_Remark` text
+  `client_Register_Reason` varchar(255) NOT NULL,
+  `client_Company` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `manage_client`
 --
 
-INSERT INTO `manage_client` (`client_ID`, `client_Name`, `client_Address_Line`, `client_Address_City`, `client_Address_Country`, `client_Address_State`, `client_Address_ZIP`, `client_Contact`, `client_Email`, `client_Register_Date`, `client_Remark`) VALUES
-(2, 'nikki', '123, Liken Park 4A', 'Likening', 'Norland', 'Kentuky', 122520, '0123336958', 'nikki@nikki-corp.com', '2018-05-11', 'some remark done');
+INSERT INTO `manage_client` (`client_ID`, `client_Status`, `client_Name`, `client_Contact`, `client_Email`, `client_Register_Date`, `client_Register_Reason`, `client_Company`) VALUES
+(2, 'online', 'nikki', '0123336958', 'nikki@nikki-corp.com', '2018-05-11', 'Company Usage', NULL),
+(30, 'online', 'User2', '123123123123', 'user2@123', '2019-05-19', 'Company Usage', NULL);
 
 --
 -- Indexes for dumped tables
@@ -277,12 +279,12 @@ ALTER TABLE `client_quotation_item`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `manage_client`
 --
 ALTER TABLE `manage_client`
-  MODIFY `client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
