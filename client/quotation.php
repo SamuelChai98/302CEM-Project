@@ -108,7 +108,7 @@ include "../config.php";
               <button class="btn btn-primary" type="button" onclick="location.href='quotationController.php?qStatus=create'">Create</button>
             </div>
             <div class="card-body">
-              <table class="table table-hover table-bordered" id="table_quotation">
+              <table class="table table-striped table-bordered" id="table_quotation">
                 <thead>
                   <tr>
                     <th class="col-lg-2">Status</th>
@@ -121,14 +121,30 @@ include "../config.php";
                 </thead>
                 <tbody>
                   <!-- Details of customer from database -->
-                  <tr>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                  </tr>
+                  <?php
+                  $sql = "SELECT * FROM client_quotation ORDER BY quotation_Date DESC";
+                  $res = mysqli_query($conn, $sql);
+                  if (mysqli_num_rows($res) > 0) {
+                    while($row = mysqli_fetch_assoc($res)){
+                      echo "<tr>";
+                      echo "<td>";
+                      echo $row["client_Name"];
+                      echo "</td>";
+                      echo "<td>";
+                      echo $row["client_Email"];
+                      echo "</td>";
+                      echo "<td>";
+                      echo $row["client_Contact"];
+                      echo "</td>";
+                      echo "<td>";
+                      echo "<div class='m-drop'>";
+                      echo "<button class='btn btn-info btn-drop'>Action</button>";
+                      echo "</div>";
+                      echo "</td>";
+                      echo "</tr>";
+                    }
+                  }
+                   ?>
                 </tbody>
               </table>
             </div>

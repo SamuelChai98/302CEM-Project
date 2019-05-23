@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 include "../config.php";
+include "../php/connection.php";
 // $status = $_SESSION["status"];
 // if($staus == ""){
 //   header("location:../index.php");
@@ -129,22 +130,47 @@ include "../config.php";
                   <table class="table table-bordered table-striped" id="table_manage_online">
                     <thead>
                       <tr>
-                        <th class="col-lg-3 col-xm-3">Company Name</th>
-                        <th class="col-lg-4 col-xm-4">Address</th>
-                        <th class="col-lg-2 col-xm-2">Email</th>
-                        <th class="col-lg-2 col-xm-2">Contact</th>
-                        <th class="col-lg-1 col-xm-1">Action</th>
+                        <th class="col-lg-3">Status</th>
+                        <th class="col-lg-3">Name</th>
+                        <th class="col-lg-2">Email</th>
+                        <th class="col-lg-2">Contact</th>
+                        <th class="col-lg-1">Action</th>
                       </tr>
                     </thead>
-                    <!-- PHP Select SQL with Edit and Delete-->
                     <tbody>
-                      <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Edit</td>
-                      </tr>
+                      <?php
+                      $sql = "SELECT * FROM manage_client WHERE client_Status = 'online' or client_Status = 'offline' ORDER BY client_Register_Date DESC";
+                      $res = mysqli_query($conn, $sql);
+                      if (mysqli_num_rows($res) > 0) {
+                        while($row = mysqli_fetch_assoc($res)){
+                          $sql2 = "SELECT * FROM login WHERE client_ID = '".$row["client_ID"]."'";
+                          $res2 = mysqli_query($conn, $sql2);
+                          if (mysqli_num_rows($res2) > 0) {
+                            while($row2 = mysqli_fetch_assoc($res2)){
+                              echo "<tr>";
+                              echo "<td>";
+                              echo $row["client_Status"];
+                              echo "</td>";
+                              echo "<td>";
+                              echo $row["client_Name"];
+                              echo "</td>";
+                              echo "<td>";
+                              echo $row["client_Email"];
+                              echo "</td>";
+                              echo "<td>";
+                              echo $row["client_Contact"];
+                              echo "</td>";
+                              echo "<td>";
+                              echo "<div class='m-drop'>";
+                              echo "<button class='btn btn-info btn-drop'>Action</button>";
+                              echo "</div>";
+                              echo "</td>";
+                              echo "</tr>";
+                            }
+                          }
+                        }
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -152,22 +178,42 @@ include "../config.php";
                   <table class="table table-bordered table-striped" id="table_manage_request">
                     <thead>
                       <tr>
-                        <th class="col-lg-3 col-xm-3">Company Name</th>
-                        <th class="col-lg-4 col-xm-4">Address</th>
-                        <th class="col-lg-2 col-xm-2">Email</th>
-                        <th class="col-lg-2 col-xm-2">Contact</th>
-                        <th class="col-lg-1 col-xm-1">Action</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Reason</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <!-- PHP Select SQL with Edit and Delete-->
                     <tbody>
-                      <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Approve/Reject</td>
-                      </tr>
+                      <?php
+                      $sql = "SELECT * FROM manage_client WHERE status = 'request' ORDER BY client_Register_Date DESC";
+                      $res = mysqli_query($conn, $sql);
+                      if (mysqli_num_rows($res) > 0) {
+                        while($row = mysqli_fetch_assoc($res)){
+                          echo "<tr>";
+                          echo "<td>";
+                          echo $row["client_Name"];
+                          echo "</td>";
+                          echo "<td>";
+                          echo $row["client_Email"];
+                          echo "</td>";
+                          echo "<td>";
+                          echo $row["client_Contact"];
+                          echo "</td>";
+                          echo "<td>";
+                          echo $row["client_Register_Reason"];
+                          echo "</td>";
+                          echo "<td>";
+                          echo "<div class='m-drop'>";
+                          echo "<button class='btn btn-info btn-drop'>Action</button>";
+                          echo "</div>";
+                          echo "</td>";
+                          echo "</tr>";
+                        }
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
