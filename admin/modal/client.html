@@ -1,0 +1,157 @@
+<!-- CREATE CLIENT -->
+<div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createClientModalLabel">Create Client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../php/adminAddClient.php" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="client-name" class="col-form-label">Name: </label>
+            <input type="text" name="clientName" class="form-control" id="client-name" required>
+          </div>
+          <div class="form-group">
+            <label for="client-email" class="col-form-label">Email: </label>
+            <input type="email" name="clientEmail" class="form-control" id="client-email" required>
+          </div>
+          <div class="form-group">
+            <label for="client-contact" class="col-form-label">Contact: </label>
+            <input type="text" name="clientContact" class="form-control" id="client-contact" required>
+          </div>
+          <div class="form-group">
+            <label for="client-username" class="col-form-label">Username: </label>
+            <input type="text" name="clientUsername" class="form-control" id="client-username" required>
+          </div>
+          <div class="form-group">
+            <label for="client-password" class="col-form-label">Password: </label>
+            <input type="password" name="clientPassword" class="form-control" id="client-password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary mr-auto">Add <i class="fa fa-user-plus"></i></button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END CREATE CLIENT -->
+
+<!-- EDIT CLIENT -->
+<div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editClientModalLabel">Edit / Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../php/adminEditClient.php" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="client-name" class="col-form-label">Name: </label>
+            <input type="text" name="clientName" class="form-control" id="client-name" required>
+          </div>
+          <div class="form-group">
+            <label for="client-email" class="col-form-label">Email: </label>
+            <input type="email" name="clientEmail" class="form-control" id="client-email" required>
+          </div>
+          <div class="form-group">
+            <label for="client-contact" class="col-form-label">Contact: </label>
+            <input type="text" name="clientContact" class="form-control" id="client-contact" required>
+          </div>
+          <div class="form-group">
+            <label for="client-username" class="col-form-label">Username: </label>
+            <input type="text" name="clientUsername" class="form-control" id="client-username" required>
+          </div>
+          <div class="form-group">
+            <label for="client-password" class="col-form-label">Password: </label>
+            <input type="password" name="clientPassword" class="form-control" id="client-password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="client_ID" id="client-id">
+          <button type="button" class="btn btn-danger mr-auto" data-toggle="modal" data-target="#cfmDelClientModal"><i class="fa fa-trash btn-icon"></i>Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
+          <button type="submit" class="btn btn-success">Edit <i class="fa fa-user-plus"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END EDIT CLIENT -->
+
+<!-- DELETE CLIENT -->
+<div class="modal fade" id="cfmDelClientModal" tabindex="-1" role="dialog" aria-labelledby="cfmDelClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cfmDelClientModalLabel">Confirmation Box</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../php/admin/adminDeleteClient.php" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-form-label">Are you sure to delete this.</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="clientID" id="client-id">
+          <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END DELETE CLIENT -->
+
+<!-- APPROVE CLIENT -->
+<div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createClientModalLabel">Create Client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../php/adminAddClient.php" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="client-name" class="col-form-label">Name: </label>
+            <input type="text" name="clientName" class="form-control" id="client-name" required>
+          </div>
+          <div class="form-group">
+            <label for="client-email" class="col-form-label">Email: </label>
+            <input type="email" name="clientEmail" class="form-control" id="client-email" required>
+          </div>
+          <div class="form-group">
+            <label for="client-contact" class="col-form-label">Contact: </label>
+            <input type="text" name="clientContact" class="form-control" id="client-contact" required>
+          </div>
+          <div class="form-group">
+            <label for="client-username" class="col-form-label">Username: </label>
+            <input type="text" name="clientUsername" class="form-control" id="client-username" required>
+          </div>
+          <div class="form-group">
+            <label for="client-password" class="col-form-label">Password: </label>
+            <input type="password" name="clientPassword" class="form-control" id="client-password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary mr-auto">Add <i class="fa fa-user-plus"></i></button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END APPROVE CLIENT -->
