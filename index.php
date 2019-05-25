@@ -51,13 +51,13 @@ else if($status == "client"){
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-at"></i></span>
               </div>
-              <input type="email" class="form-control" placeholder="Email" required>
+              <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
             <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" class="form-control" placeholder="Password" required>
+              <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             <div class="row">
               <div class="col-8">
@@ -73,16 +73,20 @@ else if($status == "client"){
           <p class="mb-1">
             <a href="#">I forgot my password</a>
           </p>
+          <hr>
+          <p class="mb-1">
+            <a href="register.php">Submit form for registration</a>
+          </p>
         </div>
         <!-- /.login-card-body -->
       </div>
     </div>
-    <!-- BOOTSTRAP -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- END BOOTSTRAP -->
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- END JQUERY -->
+    <!-- BOOTSTRAP -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <!-- END BOOTSTRAP -->
     <!-- Script File -->
     <script type="text/javascript" src="js/jscript.js"></script>
     <!-- END Script File -->
