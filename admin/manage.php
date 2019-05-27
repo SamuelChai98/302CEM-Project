@@ -224,12 +224,12 @@ include "../php/connection.php";
       </div>
     </div>
   </div>
-  <!-- JQUERY -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <!-- END JQUERY -->
   <!-- BOOTSTRAP -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <!-- END BOOTSTRAP -->
+  <!-- JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- END JQUERY -->
   <!-- ADMINLTE -->
   <script type="text/javascript" src="../dist/js/adminlte.min.js"></script>
   <!-- END ADMINLTE -->
