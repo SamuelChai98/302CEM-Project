@@ -3,7 +3,7 @@ session_start();
 include "connection.php";
 $username = $_POST["username"];
 $password = $_POST["password"];
-$sql = 'SELECT * FROM login WHERE userName = "'.$username.'" AND passWord = "'.$password.'"';
+$sql = "SELECT * FROM login WHERE userName = '".$username."' AND passWord = '".$password."'";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -25,6 +25,9 @@ if (mysqli_num_rows($result) > 0) {
       header("location:".$_SERVER["HTTP_REFERER"]);
     }
   }
+}
+else{
+  echo "error";
 }
 mysqli_close($conn);
 ?>
