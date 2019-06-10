@@ -36,70 +36,10 @@ include "../php/connection.php";
 </head>
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="admin/home.php" class="nav-link">Home</a>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <img src="../dist/img/AdminLTELogo.png"
-             alt="AdminLTE Logo"
-             class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
-      </a>
+    <!-- Navigation -->
+    <?php include "nav.php"; ?>
+    <!-- Navigation -->
 
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">USER</a>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-              <a href="manage.php" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
-                <p>
-                  Manage
-                  <!-- <span class="right badge badge-danger">New</span> -->
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
-                <p>
-                  Logout
-                  <!-- <span class="right badge badge-danger">New</span> -->
-                </p>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
-    <!-- /. Main Sidebar Container -->
     <!-- Modal -->
     <?php include "modal/client.html"; ?>
     <!-- /. Modal -->
@@ -162,7 +102,10 @@ include "../php/connection.php";
                               echo "</td>";
                               echo "<td>";
                               echo "<div class='m-drop'>";
-                              echo "<button class='btn btn-info btn-drop'>Action</button>";
+                              echo "<button class='btn btn-info mr-2' id='btnEditClient' data-toggle='modal' data-target='#editClientModal' data-id='".$row["client_ID"]."'
+                                    data-name='".$row["client_Name"]."' data-email='".$row["client_Email"]."' data-contact='".$row["client_Contact"]."'
+                                    data-username='".$row["userName"]."' data-password='".$row["passWord"]."'>Edit</button>";
+                              echo "<button class='btn btn-danger' id='btnDeleteClient' data-toggle='modal' data-target='#delClientModal' data-id='".$row["client_ID"]."'>Delete</button>";
                               echo "</div>";
                               echo "</td>";
                               echo "</tr>";
@@ -178,6 +121,7 @@ include "../php/connection.php";
                   <table class="table table-bordered table-striped" id="table_manage_request">
                     <thead>
                       <tr>
+                        <th>Register Date</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact</th>
@@ -188,11 +132,14 @@ include "../php/connection.php";
                     <!-- PHP Select SQL with Edit and Delete-->
                     <tbody>
                       <?php
-                      $sql = "SELECT * FROM manage_client WHERE status = 'request' ORDER BY client_Register_Date DESC";
+                      $sql = "SELECT * FROM manage_client WHERE client_Status = 'request' ORDER BY client_Register_Date DESC";
                       $res = mysqli_query($conn, $sql);
                       if (mysqli_num_rows($res) > 0) {
                         while($row = mysqli_fetch_assoc($res)){
                           echo "<tr>";
+                          echo "<td>";
+                          echo $row["client_Register_Date"];
+                          echo "</td>";
                           echo "<td>";
                           echo $row["client_Name"];
                           echo "</td>";
@@ -207,7 +154,8 @@ include "../php/connection.php";
                           echo "</td>";
                           echo "<td>";
                           echo "<div class='m-drop'>";
-                          echo "<button class='btn btn-info btn-drop'>Action</button>";
+                          echo "<button class='btn btn-info' id='btnRequestClient' data-toggle='modal' data-target='#approveClientModal' data-id='".$row["client_ID"]."'
+                                data-name='".$row["client_Name"]."' data-email='".$row["client_Email"]."' data-contact='".$row["client_Contact"]."'>Action</button>";
                           echo "</div>";
                           echo "</td>";
                           echo "</tr>";
@@ -225,7 +173,8 @@ include "../php/connection.php";
     </div>
   </div>
   <!-- JQUERY -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <!-- END JQUERY -->
   <!-- BOOTSTRAP -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -238,5 +187,8 @@ include "../php/connection.php";
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
   <script type="text/javascript" src="../js/dtScript.js" charset="utf-8"></script>
   <!-- END DATATABLE -->
+  <!-- MODAL SCRIPT -->
+  <script type="text/javascript" src="../js/modalScript.js" charset="utf-8"></script>
+  <!-- END MODAL SCRIPT -->
 </body>
 </html>
