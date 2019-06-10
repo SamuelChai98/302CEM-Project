@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <?php
 include "../config.php";
-// $status = $_SESSION["status"];
-// if($staus == ""){
-//   header("location:../index.php");
-// }
 ?>
 <html>
 <head>
-  <title>Quotation</title>
+  <title>Maintenace</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- CSS  -->
@@ -40,55 +36,70 @@ include "../config.php";
     <div class="content-wrapper">
       <div class="content-header">
         <div class="col-12 col-sm-12">
-          <h4>Quotation</h4>
+          <h4>Maintenance</h4>
         </div>
       </div>
       <div class="content">
         <div class="container-fluid">
           <div class="card">
-            <div class="card-header text-right">
-              <button class="btn btn-primary" type="button" onclick="location.href='quotationController.php?qStatus=create'">Create</button>
+            <!-- Tab button -->
+            <div class="card-header d-flex p-0">
+              <ul class="nav nav-pills mr-auto p-2">
+                <!-- <li class="nav-item"><button class="nav-link active btn" onclick="location.href='#customer'" data-toggle="tab">Customer</button></li>
+                <li class="nav-item"><button class="nav-link btn" onclick="location.href='#product'" data-toggle="tab">Product</button></li> -->
+                <li class="nav-item"><a class="nav-link active" href="#customer" data-toggle="tab">Customer</a></li>
+                <li class="nav-item"><a class="nav-link" href="#product" data-toggle="tab">Product</a></li>
+                </li>
+              </ul>
+              <!-- <button type="button" class="btn btn-primary" onclick="openTab_c()"><i class="fa fa-address-book btn-icon"></i>Customer</button>
+              <button type="button" class="btn btn-success" onclick="openTab_p()"><i class="fa fa-cubes btn-icon"></i>Product</button> -->
             </div>
+            <!-- Tab Content -->
             <div class="card-body">
-              <table class="table table-striped table-bordered" id="table_quotation">
-                <thead>
-                  <tr>
-                    <th class="col-lg-2">Status</th>
-                    <th class="col-lg-2">Date</th>
-                    <th class="col-lg-2">Quotation No</th>
-                    <th class="col-lg-2">Customer Name</th>
-                    <th class="col-lg-2">Amount</th>
-                    <th class="col-lg-2">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Details of customer from database -->
-                  <?php
-                  $sql = "SELECT * FROM client_quotation ORDER BY quotation_Date DESC";
-                  $res = mysqli_query($conn, $sql);
-                  if (mysqli_num_rows($res) > 0) {
-                    while($row = mysqli_fetch_assoc($res)){
-                      echo "<tr>";
-                      echo "<td>";
-                      echo $row["client_Name"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo $row["client_Email"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo $row["client_Contact"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo "<div class='m-drop'>";
-                      echo "<button class='btn btn-info btn-drop'>Action</button>";
-                      echo "</div>";
-                      echo "</td>";
-                      echo "</tr>";
-                    }
-                  }
-                   ?>
-                </tbody>
-              </table>
+              <div class="tab-content">
+                <div class="tab-pane active" id="customer">
+                  <table class="table table-striped table-bordered" id="table_customer">
+                    <thead>
+                      <tr>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>test 1</td>
+                        <td>test 2</td>
+                        <td>test 3</td>
+                        <td>test 4</td>
+                        <td>test 5</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="product">
+                  <table class="table table-striped table-bordered" id="table_product">
+                    <thead>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>item 1</td>
+                        <td>item 2</td>
+                        <td>item 3</td>
+                        <td>item 4</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>

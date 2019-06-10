@@ -1,0 +1,137 @@
+<!-- CREATE CUSTOMER -->
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customerModalLabel">Add Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="customer-name" class="col-form-label">Customer Name: </label>
+            <input type="text" class="form-control" name="cust_name" id="customer-name">
+          </div>
+          <div class="form-group">
+            <label for="customer-email" class="col-form-label">Customer Email: </label>
+            <input type="email" class="form-control" name="cust_contact" id="customer-email">
+          </div>
+          <div class="form-group">
+            <label for="customer-contact" class="col-form-label">Customer Contact: </label>
+            <input type="text" class="form-control" name="cust_contact" id="customer-contact">
+          </div>
+          <div class="form-group">
+            <label for="customer-addr-line" class="col-form-label">Customer Address Line: </label>
+            <input type="text" class="form-control" name="cust_address_line" id="customer-addr-line">
+          </div>
+          <div class="form-group">
+            <label for="customer-addr-city" class="col-form-label">Customer Address City: </label>
+            <input type="text" class="form-control" name="cust_address_city" id="customer-addr-city">
+          </div>
+          <div class="form-group">
+            <label for="customer-addr-zip" class="col-form-label">Customer Address Zip/Postal Code: </label>
+            <input type="text" class="form-control" name="cust_zip" id="customer-addr-zip">
+          </div>
+          <div class="form-group">
+            <label for="customer-addr-state" class="col-form-label">Customer Address State: </label>
+            <input type="text" class="form-control" name="cust_state" id="customer-addr-state">
+          </div>
+          <div class="form-group">
+            <label for="customer-addr-country" class="col-form-label">Customer Address Country: </label>
+            <input type="text" class="form-control" name="cust_country" id="customer-addr-country">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-plus btn-icon"></i>Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END CREATE CUSTOMER -->
+
+<!-- EDIT CUSTOMER -->
+<div class="modal fade" id="editCustomerModal" tabindex="-1" role="dialog" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="customer-name" class="col-form-label">Customer Name: </label>
+            <input type="text" class="form-control" name="customer_name" id="customer-name">
+          </div>
+          <div class="form-group">
+            <label for="customer-email" class="col-form-label">Customer Email: </label>
+            <input type="email" class="form-control" name="customer_email" id="customer-email">
+          </div>
+          <div class="form-group">
+            <label for="customer-contact" class="col-form-label">Customer Contact: </label>
+            <input type="text" class="form-control" name="customer_contact" id="customer-contact">
+          </div>
+          <div class="form-group">
+            <label for="customer-addl" class="col-form-label">Customer Address Line: </label>
+            <input type="text" class="form-control"name="customer_addl" id="customer-addl">
+          </div>
+          <div class="form-group">
+            <label for="customer-city" class="col-form-label">Customer City: </label>
+            <input type="text" class="form-control" name="customer_city" id="customer-city">
+          </div>
+          <div class="form-group">
+            <label for="customer-zip" class="col-form-label">Customer Zip: </label>
+            <input type="text" class="form-control" name="customer_zip" id="customer-zip">
+          </div>
+          <div class="form-group">
+            <label for="customer-state" class="col-form-label">Customer State: </label>
+            <input type="text" class="form-control" name="customer_state" id="customer-state">
+          </div>
+          <div class="form-group">
+            <label for="customer-country" class="col-form-label">Customer Country: </label>
+            <input type="text" class="form-control" name="customer_country" id="customer-country">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="text" name="customer_ID" id="customer-id">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
+          <button type="submit" class="btn btn-success"><i class="fa fa-user-plus btn-icon"></i>Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END EDIT CUSTOMER -->
+
+<!-- DELEET CUSTOMER -->
+<div class="modal fade" id="cfmDelCustomerModal" tabindex="-1" role="dialog" aria-labelledby="cfmDelCustomerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cfmDelCustomerModalLabel">Confirmation Box</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="#" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-form-label">Are you sure to delete this.</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="customer_ID" id="customer-id">
+          <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal"><i class="fa fa-ban btn-icon"></i>No</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-trash btn-icon"></i>Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END DELETE CUSTOMER -->
