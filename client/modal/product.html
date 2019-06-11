@@ -12,20 +12,21 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="product-name" class="col-form-label">Product Name: </label>
-            <input type="text" class="form-control" name="pdct_name" id="product-name">
+            <input type="text" class="form-control" name="product_name" id="product-name" placeholder="Enter name">
           </div>
           <div class="form-group">
             <label for="product-price" class="col-form-label">Product Price: </label>
-            <input type="text" class="form-control" name="pdct_price" id="product-price">
+            <input type="number" min="0" class="form-control" name="product_price" id="product-price" placeholder="Enter price">
           </div>
           <div class="form-group">
             <label for="product-description" class="col-form-label">Product Description: </label>
-            <input type="text" class="form-control" name="pdct_descp" id="product-description">
+            <!-- <input type="text" class="form-control" name="product_descp" id="product-description" placeholder="Enter description"> -->
+            <textarea name="product_descp" class="form-control" id="product-description" rows="3" cols="80" placeholder="Enter description"></textarea>
           </div>
         </div>
         <div class="modal-footer">
+          <button type="submit" value="product" name="btnMaintenance" class="btn btn-primary float-left"><i class="fa fa-plus btn-icon"></i>Add</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-plus btn-icon"></i>Add</button>
         </div>
       </form>
     </div>
@@ -38,7 +39,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editProductModalLabel">Edit Item</h5>
+        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -51,7 +52,7 @@
           </div>
           <div class="form-group">
             <label for="product-price" class="col-form-label">Product Price: </label>
-            <input type="text" class="form-control" name="product_price" id="product-price">
+            <input type="number" min="0" class="form-control" name="product_price" id="product-price">
           </div>
           <div class="form-group">
             <label for="product-description" class="col-form-label">Product Description: </label>
@@ -60,8 +61,8 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="product_ID" id="product-id">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close btn-icon"></i>Close</button>
-          <button type="submit" class="btn btn-success"><i class="fa fa-user-plus btn-icon"></i>Edit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          <button type="submit" value="product" name="btnMaintenance" class="btn btn-success"><i class="fa fa-user-plus"></i> Edit</button>
         </div>
       </form>
     </div>
@@ -70,11 +71,11 @@
 <!-- END EDIT PRODUCT -->
 
 <!-- DELETE PRODUCT -->
-<div class="modal fade" id="cfmDelProductModal" tabindex="-1" role="dialog" aria-labelledby="cfmDelProductModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="cfmDelProductModalLabel">Confirmation Box</h5>
+        <h5 class="modal-title" id="cfmDelProductModalLabel">Delete product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -88,7 +89,7 @@
         <div class="modal-footer">
           <input type="hidden" name="product_ID" id="product-id">
           <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal"><i class="fa fa-ban btn-icon"></i>No</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-trash btn-icon"></i>Yes</button>
+          <button type="submit" value="product" name="btnMaintenance" class="btn btn-primary"><i class="fa fa-trash btn-icon"></i>Yes</button>
         </div>
       </form>
     </div>

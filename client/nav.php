@@ -44,21 +44,13 @@
           </a>
         </li>
         <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
+          <a href="maintenance.php" class="nav-link">
             <i class="nav-icon fa fa-file"></i>
             <p>
               Maintenance
-              <i class="right fa fa-angle-left"></i>
+              <!-- <i class="right fa fa-angle-left"></i> -->
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="maintenance.php" class="nav-link">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>View</p>
-              </a>
-            </li>
-          </ul>
         </li>
         <li class="nav-item">
           <a href="../php/logout.php" class="nav-link">
