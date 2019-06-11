@@ -10,6 +10,7 @@ if (mysqli_num_rows($result) > 0) {
     if($row["status"] == "admin"){
       $_SESSION["name"] = $row["name"];
       $_SESSION["status"] = $row["status"];
+      $_SESSION["login"] = "";
       // echo "admin";
       header("location:../admin/home.php");
     }
@@ -17,17 +18,27 @@ if (mysqli_num_rows($result) > 0) {
       $_SESSION["name"] = $row["name"];
       $_SESSION["status"] = $row["status"];
       $_SESSION["id"] = $row["client_ID"];
+      $_SESSION["login"] = "";
       // echo "client";
       header("location:../client/home.php");
     }
     else{
+      // $_SESSION["login"] = "error";
       // echo "error";
-      header("location:".$_SERVER["HTTP_REFERER"]);
+      echo "<script>";
+      echo "alert('Username and Password Error');";
+      echo "window.location.href = '".$_SERVER["HTTP_REFERER"]."'";
+      echo "</script>";
+      // header("location:".$_SERVER["HTTP_REFERER"]);
     }
   }
 }
 else{
-  echo "error";
+  $_SESSION["login"] = "error";
+  echo "<script>";
+  echo "alert('Username and Password Error');";
+  echo "window.location.href = '".$_SERVER["HTTP_REFERER"]."'";
+  echo "</script>";
 }
 mysqli_close($conn);
 ?>
