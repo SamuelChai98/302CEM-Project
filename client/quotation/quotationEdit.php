@@ -1,7 +1,7 @@
 <?php
-include "../../config.php";
+session_start();
 // DETECT QUOTATION NUMBER AND ADD BY 1
-include "../../php/connection.php";
+include "../php/connection.php";
 $slc = "SELECT * FROM client_quotation WHERE client_ID='".$_SESSION["id"]."'";
 $res = mysqli_query($conn, $slc);
 if (mysqli_num_rows($res) > 0) {
@@ -38,7 +38,7 @@ if (mysqli_num_rows($rQi) > 0) {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quotation - Create</title>
+  <title>Quotation - Edit</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- CSS  -->
@@ -71,7 +71,7 @@ if (mysqli_num_rows($rQi) > 0) {
     <div class="content-wrapper">
       <div class="content-header">
         <div class="col-12 col-sm-12">
-          <h4>Quotation - Create</h4>
+          <h4>Quotation - Edit</h4>
         </div>
       </div>
       <div class="content">
@@ -79,13 +79,11 @@ if (mysqli_num_rows($rQi) > 0) {
           <div class="card">
             <div class="card-header">
               <h4 style="float:left;">No:<?php echo $qno;?></h4>
-              <button type="submit" class="btn btn-success mr-auto" style="float:right;" form="qCreate">Create</button>
+              <button type="submit" class="btn btn-success mr-auto" style="float:right;" onclick="location.href='client-quotation-view.php'">Create</button>
             </div>
-            <form class="" id="qCreate" action="../php/quotationAdd.php" method="post">
+            <form class="" action="index.html" method="post">
               <div class="card-footer">
-                <h5>
-                  Details
-                </h5>
+                <h5 class="mb-0">Details</h5>
               </div>
               <div class="card-body row">
                 <div class="form-group col-md-4">
@@ -97,13 +95,11 @@ if (mysqli_num_rows($rQi) > 0) {
                   <input type="text" list="customer_list" name="cust_name" class="form-control" placeholder="Enter Customer Name" id="cust_name" autocomplete="off" required>
                   <datalist id="customer_list">
                     <?php
-                    include "../php/connection.php";
                     $slc2 = "SELECT * FROM client_customer WHERE client_ID='".$_SESSION["id"]."'";
                     $res2 = mysqli_query($conn, $slc2);
                     if (mysqli_num_rows($res2) > 0) {
                       while($row2 = mysqli_fetch_assoc($res2)){
-                        // echo $row2["customer_Name"];
-                        echo "<option data-value='".$row2["customer_ID"]."'>".$row2["customer_Name"]."</option>";
+                        echo "<option value='".$row2["customer_Name"]."'>";
                       }
                     }
                     // mysqli_close($conn);
@@ -121,27 +117,27 @@ if (mysqli_num_rows($rQi) > 0) {
                 <input type="hidden" name="totalAmount" value="<?php echo $t;?>" readonly>
               </div>
               <div class="card-footer">
-                <h5>Products</h5>
+                <h5 class="mb-0">Products</h5>
               </div>
               <div class="card-body">
                 <div class="card-body col-lg-12">
                   <table class="table table-bordered table-responsive" id="quotationProductTable">
-                      <thead>
-                        <!-- <th class="col-lg-1">#</th> -->
-                        <th class="col-lg-6" colspan="2">Product : Description</th>
-                        <!-- <th class="col-lg-3">Description</th> -->
-                        <th class="col-lg-1">Quantity</th>
-                        <th class="col-lg-1">Price(each)</th>
-                        <th class="col-lg-2">Tax</th>
-                        <th class="col-lg-2" colspan="2">Amount</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <!-- <td>
+                    <thead>
+                      <!-- <th class="col-lg-1">#</th> -->
+                      <th class="col-lg-6" colspan="2">Product : Description</th>
+                      <!-- <th class="col-lg-3">Description</th> -->
+                      <th class="col-lg-1">Quantity</th>
+                      <th class="col-lg-1">Price(each)</th>
+                      <th class="col-lg-2">Tax</th>
+                      <th class="col-lg-2" colspan="2">Amount</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <!-- <td>
                           <input type="hidden" value="0" id="rowNo">
                         </td> -->
                         <td colspan="2">
-                          <input type="text" list="product_list" id="qPName" name="pname" class="form-control" placeholder="Product name" autocomplete="off">
+                          <input type="text" list="product_list" id="qPName" name="pname" class="form-control" placeholder="Product name">
                           <datalist id="product_list">
                             <?php
                             include "../php/connection.php";
@@ -149,7 +145,7 @@ if (mysqli_num_rows($rQi) > 0) {
                             $res3 = mysqli_query($conn, $slc3);
                             if (mysqli_num_rows($res3) > 0) {
                               while($row3 = mysqli_fetch_assoc($res3)){
-                                echo "<option data-value='".$row3["product_ID"]."'>".$row3["product_Name"]."</option>";
+                                echo "<option value='".$row3["product_Name"]."'>".$row3["product_Name"]."</option>";
                               }
                               $pid = $row3["product_ID"];
                             }
@@ -157,7 +153,7 @@ if (mysqli_num_rows($rQi) > 0) {
                           </datalist>
                         </td>
                         <!-- <td colspan="2">
-                        <input type="text" id="desc" name="descript" class="q-input col-lg-12" placeholder="Description" required> -->
+                          <input type="text" id="desc" name="descript" class="q-input col-lg-12" placeholder="Description" required> -->
                         <!-- </td> -->
                         <td>
                           <input type="number" id="qPQuantity" min="0" onkeyup="productTotalPriceCount()" name="quantity" class="form-control" placeholder="Qty">
@@ -166,65 +162,63 @@ if (mysqli_num_rows($rQi) > 0) {
                           <input type="number" id="qPPrice" min="0" step="0.01" onkeyup="productTotalPriceCount()" name="price" class="form-control" placeholder="Price">
                         </td>
                         <td>
-                          <input type="text" id="qPTax" name="tax" class="form-control" placeholder="Tax description" >
+                          <input type="text" id="qPTax" name="tax" class="form-control" placeholder="Tax description">
                         </td>
                         <td>
                           <input id="qPTotalAmount" name="amount" class="form-control-plaintext" placeholder="Amount" readonly>
                         </td>
                         <td>
                           <input type="hidden" value="Delete">
-                          <button type="button" name="add" id="btn_add" onclick="quotationAddItem()" class="btn btn-info col-lg-12"><i class="fas fa-level-down-alt"></i> Add</button>
+                          <button type="button" name="add" id="btn_add" onclick="quotationAddItem()" class="btn btn-info col-lg-12" style="margin-left:2px;"><i class="fas fa-level-down-alt"></i> Add</button>
                         </td>
                       </tr>
                       <?php
                       //Get ID from quotation
-                      // $slc4 = "SELECT * FROM client_quotation_item WHERE quotation_No = $qno and client_ID = '".$_SESSION["id"]."'";
-                      // $res4 = mysqli_query($conn, $slc4);
-                      // if (mysqli_num_rows($res4) > 0) {
-                      //   while($row4 = mysqli_fetch_assoc($res4)){
-                      //     // Get Name
-                      //     $slc5 = "SELECT * FROM client_product WHERE product_ID = '".$row4["product_ID"]."'";
-                      //     $res5 = mysqli_query($conn, $slc5);
-                      //     if (mysqli_num_rows($res5) > 0) {
-                      //       while($row5 = mysqli_fetch_assoc($res5)){
-                      //         echo "<tr>";
-                      //         echo "<td class='col-lg-2'>";
-                      //         echo $row5["product_Name"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-4'>";
-                      //         echo $row5["product_Description"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-1'>";
-                      //         echo $row4["quantity"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-1'>";
-                      //         echo $row4["price"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-2'>";
-                      //         echo $row4["tax"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-1'>";
-                      //         echo $row4["amount"];
-                      //         echo "</td>";
-                      //         echo "<td class='col-lg-1'>";
-                      //         echo "<i id='delRow' class='fa fa-times btn-icon' style='color:red;padding:auto;cursor:pointer;' onclick=location.href='../php/quotation_delete_item.php?list_ID=".$row4["list_ID"]."'></i>";
-                      //         echo "</td>";
-                      //         echo "</tr>";
-                      //         $total += $row4["amount"];
-                      //       }
-                      //     }
-                      //   }
-                      // }
-                      ?>
+                        // $slc4 = "SELECT * FROM client_quotation_item WHERE quotation_No = $qno and client_ID = '".$_SESSION["id"]."'";
+                        // $res4 = mysqli_query($conn, $slc4);
+                        // if (mysqli_num_rows($res4) > 0) {
+                        //   while($row4 = mysqli_fetch_assoc($res4)){
+                        //     // Get Name
+                        //     $slc5 = "SELECT * FROM client_product WHERE product_ID = '".$row4["product_ID"]."'";
+                        //     $res5 = mysqli_query($conn, $slc5);
+                        //     if (mysqli_num_rows($res5) > 0) {
+                        //       while($row5 = mysqli_fetch_assoc($res5)){
+                        //         echo "<tr>";
+                        //         echo "<td class='col-lg-2'>";
+                        //         echo $row5["product_Name"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-4'>";
+                        //         echo $row5["product_Description"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-1'>";
+                        //         echo $row4["quantity"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-1'>";
+                        //         echo $row4["price"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-2'>";
+                        //         echo $row4["tax"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-1'>";
+                        //         echo $row4["amount"];
+                        //         echo "</td>";
+                        //         echo "<td class='col-lg-1'>";
+                        //         echo "<i id='delRow' class='fa fa-times btn-icon' style='color:red;padding:auto;cursor:pointer;' onclick=location.href='../php/quotation_delete_item.php?list_ID=".$row4["list_ID"]."'></i>";
+                        //         echo "</td>";
+                        //         echo "</tr>";
+                        //         $total += $row4["amount"];
+                        //       }
+                        //     }
+                        //   }
+                        // }
+                       ?>
                     </tbody>
                     <tfoot>
                       <!-- Remark -->
                       <tr>
                         <td colspan="4">
-                          <div class="form-group">
-                            <label class="col-form-label">Remark:</label>
-                            <input type="text" class="form-control" size="50" value="<?php echo $_SESSION['remark'];?>" placeholder="Remark">
-                          </div>
+                          <label class="col-form-label">Remark:</label>
+                          <input type="text" class="form-control" size="50" value="<?php echo $_SESSION['remark'];?>" placeholder="Remark">
                         </td>
                         <td>
                           <label>Total:</label>
@@ -235,9 +229,9 @@ if (mysqli_num_rows($rQi) > 0) {
                       </tr>
                     </tfoot>
                   </table>
-                </form>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
