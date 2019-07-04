@@ -43,6 +43,15 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="invoice.php" class="nav-link">
+            <i class="nav-icon fa fa-file"></i>
+            <p>
+              Invoice
+              <!-- <span class="right badge badge-danger">New</span> -->
+            </p>
+          </a>
+        </li>
         <li class="nav-item has-treeview">
           <a href="maintenance.php" class="nav-link">
             <i class="nav-icon fa fa-file"></i>
