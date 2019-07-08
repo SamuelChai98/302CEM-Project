@@ -1,3 +1,27 @@
+<?php
+include "../config.php";
+// DETECT QUOTATION NUMBER AND ADD BY 1
+include "../php/connection.php";
+$slc = "SELECT * FROM client_quotation WHERE client_ID='".$_SESSION["id"]."'";
+$res = mysqli_query($conn, $slc);
+if (mysqli_num_rows($res) > 0) {
+  while($row = mysqli_fetch_assoc($res)){
+    if($row["quotation_No"] == 0){
+      $qno = $row["quotation_No"];
+      ++$qno;
+      // echo $qno;
+    }
+    else if($row["quotation_No"] != 0){
+      $qno = $row["quotation_No"];
+      ++$qno;
+      // echo $qno;
+    }
+  }
+}
+else{
+  ++$qno;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +29,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- CSS  -->
-  <link rel="stylesheet" type="text/css" href="../../css/temp.css">
+  <link rel="stylesheet" type="text/css" href="../css/temp.css">
   <!-- END CSS -->
   <!-- Bootstrap 4.2.1 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -14,6 +38,7 @@
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- END IonIcons -->
   <!-- Font Awesome -->
+  <link rel="stylesheet" type="text/css" href="../dist/js/plugins/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <!-- END Font Awesome -->
   <!-- Google Font: Source Sans Pro -->
@@ -23,189 +48,220 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
   <!-- END Datatable -->
   <!-- adminLTE -->
-  <link rel="stylesheet" type="text/css" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin/home.php" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png"
-           alt="AdminLTE Logo"
-           class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">USER</a>
+  <div class="wrapper">
+    <!-- Navigation -->
+    <?php include "nav.php"; ?>
+    <!-- Navigation -->
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="col-12 col-sm-12">
+          <h4>Quotation - Create</h4>
         </div>
       </div>
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="../quotation.php" class="nav-link">
-              <i class="nav-icon fa fa-file"></i>
-              <p>
-                Quotation
-                <!-- <span class="right badge badge-danger">New</span> -->
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
-              <p>
-                Logout
-                <!-- <span class="right badge badge-danger">New</span> -->
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-  <div class="content-wrapper">
-    <div class="content-header">
-      <!-- <div class="col-12 col-sm-12">
-        <h4>Quotation</h4>
-      </div> -->
-    </div>
-    <div class="content">
-      <div class="container-fluid">
-        <div class="card">
-          <div class="card-header">
-            <h4 style="float:left;">No: 1</h4>
-            <button type="submit" form="qForm" class="btn btn-success float-right">Create</button>
-          </div>
-          <div class="card-footer">
-            <strong>Details</strong>
-          </div>
-          <form id="qForm" action="#" method="post"> <!-- form action to insert all -->
-            <div class="card-body">
-              <div class="form-group">
-                <div class="row">
-                  <!-- <input type="hidden" name="qno" value=""/> Get quotation number -->
-                  <!-- <input type="hidden" name="totalAmount" value="" readonly/> Total amount of item -->
-                  <div class="col">
-                    <label>Customer Name</label>
-                    <input type="text" list="customer_list" name="cust_name" class="form-control" placeholder="Enter Customer Name" id="cust_name">
-                  </div>
-                  <div class="col">
-                    <label>Date Start</label>
-                    <input type="date" name="dateStart" class="form-control">
-                  </div>
-                  <div class="col">
-                    <label>Date End</label>
-                    <input type="date" name="dateEnd" class="form-control">
-                  </div>
+      <div class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header">
+              <h4 style="float:left;">No:<?php echo $qno;?></h4>
+              <button type="submit" class="btn btn-success mr-auto" style="float:right;" form="qCreate">Create</button>
+            </div>
+            <form class="" id="qCreate" action="../php/quotationAdd.php" method="post">
+              <div class="card-footer">
+                <h5>
+                  Details
+                </h5>
+              </div>
+              <div class="card-body row">
+                <div class="form-group col-md-4">
+                  <input type="hidden" name="qno" value="<?php echo $qno;?>"></input>
+                  <label class="col-form-label">
+                    Customer Name
+                    <!-- <i class="fa fa-plus text-danger" data-toggle="modal" data-target="#customerModal"></i> -->
+                  </label>
+                  <select class="custom-select mr-sm-2" id="customerName" name="cust_name" required>
+                    <option selected>Customer Name</option>
+                    <?php
+                    include "../php/connection.php";
+                    $slc2 = "SELECT * FROM client_customer WHERE client_ID='".$_SESSION["id"]."' AND customer_Verify = '1'";
+                    $res2 = mysqli_query($conn, $slc2);
+                    if (mysqli_num_rows($res2) > 0) {
+                      while($row2 = mysqli_fetch_assoc($res2)){
+                        echo "<option value='".$row2["customer_Name"]."'>".$row2["customer_Name"]."</option>";
+                      }
+                    }
+                    mysqli_close($conn);
+                    ?>
+                  </select>
                 </div>
+                <div class="form-group col-md-4">
+                  <label class="col-form-label">Date Start</label>
+                  <input type="date" name="dateStart" class="form-control" required>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="col-form-label">Date End</label>
+                  <input type="date" name="dateEnd" class="form-control" required>
+                </div>
+                <input type="hidden" name="totalAmount" value="<?php echo $t;?>" readonly>
+              </div>
+              <div class="card-footer">
+                <h5>Products</h5>
+              </div>
+              <div class="card-body">
+                <div class="card-body col-lg-12">
+                  <table class="table table-bordered table-responsive" id="quotationProductTable">
+                      <thead>
+                        <!-- <th class="col-lg-1">#</th> -->
+                        <th class="col-lg-6" colspan="2">Product Name</th>
+                        <!-- <th class="col-lg-3">Description</th> -->
+                        <th class="col-lg-1">Quantity</th>
+                        <th class="col-lg-1">Price(each)</th>
+                        <th class="col-lg-2">Tax</th>
+                        <th class="col-lg-2" colspan="2">Amount</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <!-- <td>
+                          <input type="hidden" value="0" id="rowNo">
+                        </td> -->
+                        <td colspan="2">
+                          <select class="custom-select mr-sm-2" id="qPName" name="pname">
+                            <?php
+                            include "../php/connection.php";
+                            $slc3 = "SELECT * FROM client_product WHERE client_ID='".$_SESSION["id"]."'";
+                            $res3 = mysqli_query($conn, $slc3);
+                            if (mysqli_num_rows($res3) > 0) {
+                              while($row3 = mysqli_fetch_assoc($res3)){
+                                echo "<option data-value='".$row3["product_ID"]."'>".$row3["product_Name"]."</option>";
+                              }
+                              $pid = $row3["product_ID"];
+                            }
+                            ?>
+                          </select>
+                          <!-- <input type="text" list="product_list" id="qPName" name="pname" class="form-control" placeholder="Product name" autocomplete="off">
+                          <datalist id="product_list"> -->
+                            <?php
+                            // include "../php/connection.php";
+                            // $slc3 = "SELECT * FROM client_product WHERE client_ID='".$_SESSION["id"]."'";
+                            // $res3 = mysqli_query($conn, $slc3);
+                            // if (mysqli_num_rows($res3) > 0) {
+                            //   while($row3 = mysqli_fetch_assoc($res3)){
+                            //     echo "<option data-value='".$row3["product_ID"]."'>".$row3["product_Name"]."</option>";
+                            //   }
+                            //   $pid = $row3["product_ID"];
+                            // }
+                            ?>
+                          <!-- </datalist> -->
+                        </td>
+                        <!-- <td colspan="2">
+                        <input type="text" id="desc" name="descript" class="q-input col-lg-12" placeholder="Description" required> -->
+                        <!-- </td> -->
+                        <td>
+                          <input type="number" id="qPQuantity" min="0" onkeyup="productTotalPriceCount()" name="quantity" class="form-control" placeholder="Qty">
+                        </td>
+                        <td>
+                          <input type="number" id="qPPrice" min="0" step="0.01" onkeyup="productTotalPriceCount()" name="price" class="form-control" placeholder="Price">
+                        </td>
+                        <td>
+                          <input type="text" id="qPTax" name="tax" class="form-control" placeholder="Tax description" >
+                        </td>
+                        <td>
+                          <input id="qPTotalAmount" name="amount" class="form-control-plaintext" placeholder="Amount" readonly>
+                        </td>
+                        <td>
+                          <input type="hidden" value="Delete">
+                          <button type="button" name="add" id="btn_add" onclick="quotationAddItem()" class="btn btn-info col-lg-12"><i class="fas fa-level-down-alt"></i> Add</button>
+                        </td>
+                      </tr>
+                      <?php
+                      //Get ID from quotation
+                      // $slc4 = "SELECT * FROM client_quotation_item WHERE quotation_No = $qno and client_ID = '".$_SESSION["id"]."'";
+                      // $res4 = mysqli_query($conn, $slc4);
+                      // if (mysqli_num_rows($res4) > 0) {
+                      //   while($row4 = mysqli_fetch_assoc($res4)){
+                      //     // Get Name
+                      //     $slc5 = "SELECT * FROM client_product WHERE product_ID = '".$row4["product_ID"]."'";
+                      //     $res5 = mysqli_query($conn, $slc5);
+                      //     if (mysqli_num_rows($res5) > 0) {
+                      //       while($row5 = mysqli_fetch_assoc($res5)){
+                      //         echo "<tr>";
+                      //         echo "<td class='col-lg-2'>";
+                      //         echo $row5["product_Name"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-4'>";
+                      //         echo $row5["product_Description"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-1'>";
+                      //         echo $row4["quantity"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-1'>";
+                      //         echo $row4["price"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-2'>";
+                      //         echo $row4["tax"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-1'>";
+                      //         echo $row4["amount"];
+                      //         echo "</td>";
+                      //         echo "<td class='col-lg-1'>";
+                      //         echo "<i id='delRow' class='fa fa-times btn-icon' style='color:red;padding:auto;cursor:pointer;' onclick=location.href='../php/quotation_delete_item.php?list_ID=".$row4["list_ID"]."'></i>";
+                      //         echo "</td>";
+                      //         echo "</tr>";
+                      //         $total += $row4["amount"];
+                      //       }
+                      //     }
+                      //   }
+                      // }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <!-- Remark -->
+                      <tr>
+                        <td colspan="4">
+                          <div class="form-group">
+                            <label class="col-form-label">Remark: (Optional)</label>
+                            <input type="text" class="form-control" size="50" name="remark" placeholder="Remark (50 Words only)">
+                          </div>
+                        </td>
+                        <td>
+                          <label>Total:</label>
+                        </td>
+                        <td colspan="2">
+                          <input class="form-control-plaintext" name="qFinalAmount" id="qFinalAmount" readonly>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </form>
               </div>
             </div>
-            <div class="card-footer">
-              <strong>Products</strong>
-            </div>
-            <div class="card-body">
-              <div class="card-body table-resonsive">
-                <table class="table table-bordered" id="table_quotation_product">
-                  <thead>
-                    <tr>
-                      <!-- <th class="col-lg-1">#</th> -->
-                      <th class="col-lg-6">Product Name</th>
-                      <!-- <th class="col-lg-3">Description</th> -->
-                      <th class="col-lg-1">Quantity</th>
-                      <th class="col-lg-1">Price(each)</th>
-                      <th class="col-lg-2">Tax</th>
-                      <th class="col-lg-2" colspan="2">Amount</th>
-                    </tr>
-                    <tr class="form-group">
-                      <th>
-                        <input type="text" list="product_list" id="pname" name="pname" class="form-control" placeholder="Product name" required>
-                      </th>
-                      <th>
-                        <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Qty" required>
-                      </th>
-                      <th>
-                        <input type="text" id="price" name="price" class="form-control" placeholder="Price" required>
-                      </th>
-                      <th>
-                        <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax description" required>
-                      </th>
-                      <th>
-                        <input type="text" id="total_amount" name="amount" class="form-control" placeholder="Amount" required>
-                      </th>
-                      <th>
-                        <input type="hidden" value="Delete">
-                        <button type="button" name="add" id="btn_add" class="btn btn-warning">Add <i class="fas fa-level-down-alt"></i></button>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="6" class="bg-light">
-                        <p><u>Item List</u></p>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <!-- Remark -->
-                    <tr>
-                      <td colspan="3">
-                        <strong>Remark: </strong>
-                        <input type="text" id="quotationRemark" class="form-control" value="<?php echo $_SESSION['remark'];?>" placeholder="Remark...">
-                      </td>
-                      <td colspan="4">
-                        <label>Total:</label>
-                        <!-- EITHER use <p> or <input> -->
-                        <!-- <input type="text" name="tAmount" id="total_amount" value="" readonly> -->
-                        <!-- <p></p> -->
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- JQUERY -->
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <!-- END JQUERY -->
   <!-- BOOTSTRAP -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <!-- END BOOTSTRAP -->
-  <!-- JQUERY -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <!-- END JQUERY -->
-  <!-- Script File -->
-  <!-- <script type="text/javascript" src="//<?php //echo ABSPATH . 'js/mobile-detect.js'; ?>"></script> -->
-  <!-- END Script File -->
   <!-- ADMINLTE -->
   <script type="text/javascript" src="../dist/js/adminlte.min.js"></script>
   <!-- END ADMINLTE -->
+  <!-- DATATABLE -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../js/dtScript.js" charset="utf-8"></script>
+  <!-- END DATATABLE -->
+  <!-- MODAL SCRIPT -->
+  <script src="../js/modalScript.js" charset="utf-8"></script>
+  <!-- END MODAL SCRIPT -->
+  <!-- QUOTATION SCRIPT -->
+  <script src="../js/quotationScript.js" charset="utf-8"></script>
+  <!-- END QUOTATION SCRIPT -->
 </body>
 </html>

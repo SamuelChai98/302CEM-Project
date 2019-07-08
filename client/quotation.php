@@ -37,6 +37,33 @@ include "../config.php";
     <!-- Navigation -->
     <?php include "nav.php"; ?>
     <!-- Navigation -->
+    <!-- Modal -->
+    <div class="modal fade" id="deleteQuotationModal" tabindex="-1" role="dialog" aria-labelledby="deleteQuotationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteQuotationModalLabel">Delete Quotation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="../php/quotationDelete.php" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="hidden" id="quotation_ID" name="quotationID">
+                <label class="col-form-label">Are you sure to delete this.</label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="customer_ID" id="customer-id">
+              <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal"><i class="fa fa-ban"></i> No</button>
+              <button type="submit" value="customer" name="btnMaintenance" class="btn btn-primary"><i class="fa fa-trash"></i> Yes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- END Modal -->
     <div class="content-wrapper">
       <div class="content-header">
         <div class="col-12 col-sm-12">
@@ -53,37 +80,62 @@ include "../config.php";
               <table class="table table-striped table-bordered" id="table_quotation">
                 <thead>
                   <tr>
-                    <th class="col-lg-2">Status</th>
                     <th class="col-lg-2">Date</th>
                     <th class="col-lg-2">Quotation No</th>
                     <th class="col-lg-2">Customer Name</th>
                     <th class="col-lg-2">Amount</th>
+                    <th class="col-lg-2">Remark</th>
                     <th class="col-lg-2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <!-- Details of customer from database -->
                   <?php
-                  $sql = "SELECT * FROM client_quotation ORDER BY quotation_Date DESC";
+                  include "../php/connection.php";
+                  $sql = "SELECT * FROM client_quotation WHERE client_ID = '".$_SESSION["id"]."'";
                   $res = mysqli_query($conn, $sql);
                   if (mysqli_num_rows($res) > 0) {
                     while($row = mysqli_fetch_assoc($res)){
-                      echo "<tr>";
-                      echo "<td>";
-                      echo $row["client_Name"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo $row["client_Email"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo $row["client_Contact"];
-                      echo "</td>";
-                      echo "<td>";
-                      echo "<div class='m-drop'>";
-                      echo "<button class='btn btn-info btn-drop'>Action</button>";
-                      echo "</div>";
-                      echo "</td>";
-                      echo "</tr>";
+                      $sql2 = "SELECT * FROM client_customer WHERE customer_ID = '".$row["customer_ID"]."'";
+                      $res2 = mysqli_query($conn, $sql2);
+                      if (mysqli_num_rows($res2) > 0) {
+                        while($row2 = mysqli_fetch_assoc($res2)){
+                          $sql3 = "SELECT * FROM client_quotation_item WHERE quotation_No = '".$row["quotation_ID"]."'";
+                          $res3 = mysqli_query($conn, $sql3);
+                          if (mysqli_num_rows($res3) > 0) {
+                            while($row3 = mysqli_fetch_assoc($res3)){
+                              $tAmount += $row3["amount"];
+                              if($row["quotation_Remark"] == ""){
+                                $row["quotation_Remark"] = "No Remark";
+                              }
+                            }
+                            echo "<tr>";
+                            echo "<td>";
+                            echo $row["quotation_Date"];
+                            echo "</td>";
+                            echo "<td>";
+                            echo $row["quotation_No"];
+                            echo "</td>";
+                            echo "<td>";
+                            echo $row2["customer_Name"];
+                            echo "</td>";
+                            echo "<td>";
+                            echo $tAmount;
+                            echo "</td>";
+                            echo "<td>";
+                            echo $row["quotation_Remark"];
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<div class='m-drop'>";
+                            echo "<button class='btn btn-info' onclick=location.href='quotationController.php?qStatus=edit&qNo=".$row["quotation_ID"]."'>Edit</button>";
+                            echo "<button class='btn btn-danger ml-3' id='btnDeleteQuotation' data-toggle='modal' data-target='#deleteQuotationModal' data-id='".$row["quotation_ID"]."'>Delete</button>";
+                            echo "</div>";
+                            echo "</td>";
+                            echo "</tr>";
+                            $tAmount = 0;
+                          }
+                        }
+                      }
                     }
                   }
                    ?>
@@ -110,5 +162,8 @@ include "../config.php";
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
   <script type="text/javascript" src="../js/dtScript.js" charset="utf-8"></script>
   <!-- END DATATABLE -->
+  <!-- MODAL -->
+  <script type="text/javascript" src="../js/modalScript.js" charset="utf-8"></script>
+  <!-- END MODAL -->
 </body>
 </html>
