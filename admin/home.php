@@ -50,6 +50,15 @@ include "../config.php";
                   <span class="info-box-text">Total Client </span>
                   <span class="info-box-number">
                     <!-- PHP goes here -->
+                    <?php
+                    include "../php/connection.php";
+                    $sql = "SELECT COUNT(client_ID) as cID FROM manage_client WHERE client_Status = 'online'";
+                    $res = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($res) > 0){
+                      $row = mysqli_fetch_assoc($res);
+                      echo $row["cID"];
+                    }
+                     ?>
                   </span>
                 </div>
               </div>
