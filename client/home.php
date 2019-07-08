@@ -55,6 +55,16 @@ include "../config.php";
                   <span class="info-box-text">Total Customer</span>
                   <span class="info-box-number">
                     <!-- PHP goes here -->
+                    <?php
+                    include "../php/connection.php";
+                    $sql = "SELECT COUNT(customer_ID) as cID FROM client_customer WHERE client_ID = '".$_SESSION["id"]."' AND customer_Verify = '1'";
+                    $res = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($res) > 0){
+                      $row = mysqli_fetch_assoc($res);
+                      echo $row["cID"];
+                    }
+                    mysqli_close($conn);
+                     ?>
                   </span>
                 </div>
               </div>
@@ -68,19 +78,16 @@ include "../config.php";
                   <span class="info-box-text">Total Quotation</span>
                   <span class="info-box-number">
                     <!-- PHP goes here -->
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-xl-3">
-              <div class="info-box">
-                <span class="info-box-icon bg-danger elevation-1">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Total Overdue Invoices</span>
-                  <span class="info-box-number">
-                    <!-- PHP goes here -->
+                    <?php
+                    include "../php/connection.php";
+                    $sql = "SELECT COUNT(quotation_ID) as qID FROM client_quotation WHERE client_ID = '".$_SESSION["id"]."'";
+                    $res = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($res) > 0){
+                      $row = mysqli_fetch_assoc($res);
+                      echo $row["qID"];
+                    }
+                    mysqli_close($conn);
+                     ?>
                   </span>
                 </div>
               </div>
@@ -94,6 +101,15 @@ include "../config.php";
                   <span class="info-box-text">Total Product</span>
                   <span class="info-box-number">
                     <!-- PHP goes here -->
+                    <?php
+                    include "../php/connection.php";
+                    $sql = "SELECT COUNT(product_ID) as pID FROM client_product WHERE client_ID = '".$_SESSION["id"]."'";
+                    $res = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($res) > 0){
+                      $row = mysqli_fetch_assoc($res);
+                      echo $row["pID"];
+                    }
+                     ?>
                   </span>
                 </div>
               </div>
