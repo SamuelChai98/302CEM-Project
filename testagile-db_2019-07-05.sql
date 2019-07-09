@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 11, 2019 at 09:43 AM
+-- Generation Time: Jul 05, 2019 at 06:20 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.1
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `client_customer` (
   `customer_ID` int(11) NOT NULL,
+  `customer_Verify` int(11) NOT NULL DEFAULT '0',
   `customer_Name` varchar(100) NOT NULL,
   `customer_Email` varchar(100) NOT NULL,
   `customer_Contact` varchar(20) NOT NULL,
@@ -46,13 +47,10 @@ CREATE TABLE `client_invoice` (
   `invoice_ID` bigint(20) NOT NULL,
   `invoice_Date` date DEFAULT NULL,
   `invoice_No` int(11) DEFAULT NULL,
-  `quotation_ID` bigint(11) DEFAULT NULL,
   `customer_ID` int(11) NOT NULL,
   `client_ID` bigint(20) NOT NULL,
   `invoice_Amount` bigint(20) DEFAULT NULL,
-  `invoice_Balance` bigint(20) DEFAULT NULL,
-  `payment_Due` date DEFAULT NULL,
-  `status` enum('draft','paid','partial','overdue') DEFAULT NULL
+  `payment_Due` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -62,7 +60,7 @@ CREATE TABLE `client_invoice` (
 --
 
 CREATE TABLE `client_invoice_item` (
-  `iList_ID` bigint(20) NOT NULL,
+  `list_ID` bigint(20) NOT NULL,
   `invoice_No` bigint(20) NOT NULL,
   `product_ID` int(11) NOT NULL,
   `client_ID` bigint(20) NOT NULL,
@@ -70,19 +68,6 @@ CREATE TABLE `client_invoice_item` (
   `price` bigint(20) DEFAULT NULL,
   `tax` varchar(100) DEFAULT NULL,
   `amount` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `client_invoice_payment`
---
-
-CREATE TABLE `client_invoice_payment` (
-  `payment_ID` int(11) NOT NULL,
-  `invoice_ID` int(11) NOT NULL,
-  `payment_Method` varchar(100) NOT NULL,
-  `payment_Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -113,11 +98,7 @@ CREATE TABLE `client_quotation` (
   `client_ID` bigint(20) DEFAULT NULL,
   `quotation_Start_Date` date NOT NULL,
   `quotation_End_Date` date NOT NULL,
-  `product_ID` int(11) NOT NULL,
-  `quotation_Qty` int(11) NOT NULL,
-  `quotation_Tax` varchar(255) NOT NULL,
-  `quotation_Remark` varchar(255) NOT NULL,
-  `quotation_Amount` bigint(20) DEFAULT NULL
+  `quotation_Remark` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -148,7 +129,7 @@ CREATE TABLE `login` (
   `client_ID` int(11) DEFAULT NULL,
   `userName` varchar(100) NOT NULL,
   `passWord` varchar(30) NOT NULL,
-  `status` enum('admin','client') NOT NULL
+  `status` enum('admin','client','customer') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -181,7 +162,7 @@ CREATE TABLE `manage_client` (
 --
 
 INSERT INTO `manage_client` (`client_ID`, `client_Status`, `client_Name`, `client_Contact`, `client_Email`, `client_Register_Date`, `client_Register_Reason`, `client_Company`) VALUES
-(2, 'online', 'nikki', '0123336958', 'nikki@nikki-corp.com', '2018-05-11', 'Company Usage', NULL);
+(2, 'online', 'nikki', '0123336958', 'nikki@nikki-corp.com.my', '2018-05-11', 'Company Usage', NULL);
 
 --
 -- Indexes for dumped tables
@@ -203,7 +184,7 @@ ALTER TABLE `client_invoice`
 -- Indexes for table `client_invoice_item`
 --
 ALTER TABLE `client_invoice_item`
-  ADD PRIMARY KEY (`iList_ID`);
+  ADD PRIMARY KEY (`list_ID`);
 
 --
 -- Indexes for table `client_product`
@@ -243,17 +224,17 @@ ALTER TABLE `manage_client`
 -- AUTO_INCREMENT for table `client_customer`
 --
 ALTER TABLE `client_customer`
-  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `client_invoice`
 --
 ALTER TABLE `client_invoice`
-  MODIFY `invoice_ID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `invoice_ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `client_invoice_item`
 --
 ALTER TABLE `client_invoice_item`
-  MODIFY `iList_ID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `list_ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `client_product`
 --
@@ -263,22 +244,22 @@ ALTER TABLE `client_product`
 -- AUTO_INCREMENT for table `client_quotation`
 --
 ALTER TABLE `client_quotation`
-  MODIFY `quotation_ID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `quotation_ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `client_quotation_item`
 --
 ALTER TABLE `client_quotation_item`
-  MODIFY `list_ID` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `list_ID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `manage_client`
 --
 ALTER TABLE `manage_client`
-  MODIFY `client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `client_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
